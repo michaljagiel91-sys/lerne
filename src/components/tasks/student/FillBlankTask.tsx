@@ -15,9 +15,9 @@ export default function FillBlankTask({ task, onResult }: Props) {
   let blankIdx = 0
 
   const check = () => {
-    const res = content.blanks.map((b, i) =>
+    const res: boolean[] = content.blanks.map((b, i) =>
       answers[i].trim().toLowerCase() === b.answer.toLowerCase() ||
-      b.alternatives?.some(a => a.toLowerCase() === answers[i].trim().toLowerCase())
+      (b.alternatives?.some(a => a.toLowerCase() === answers[i].trim().toLowerCase()) ?? false)
     )
     setResults(res)
     setChecked(true)
