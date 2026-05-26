@@ -14,7 +14,7 @@ export async function updateSession(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options as Record<string, unknown>)
           )
         },
       },
@@ -30,8 +30,17 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  if (user && (pathname === '/login' || pathname === '/register')) {
-    return NextResponse.redirect(new URL('/', request.url))
+  if (user && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (profile?.role === 'teacher') {
+      return NextResponse.redirect(new URL('/teacher/lessons', request.url))
+    }
+    return NextResponse.redirect(new URL('/student/lessons', request.url))
   }
 
   return supabaseResponse
