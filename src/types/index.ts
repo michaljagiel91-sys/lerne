@@ -95,3 +95,4 @@ export interface BlockResult {
 
 // Alias for backward compatibility with student task components
 export type Task = Block
+export type TaskType = BlockType
