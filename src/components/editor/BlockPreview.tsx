@@ -2,7 +2,7 @@
 import { Block, TextBlockContent, ImageBlockContent, AudioBlockContent, FillBlankContent, MatchPairsContent, WordOrderContent, TrueFalseContent, MultipleChoiceContent, MemoryContent } from '@/types'
 
 export default function BlockPreview({ block }: { block: Block }) {
-  const c = block.content as Record<string, unknown>
+  const c = block.content as unknown as Record<string, unknown>
 
   switch (block.type) {
     case 'text': {
