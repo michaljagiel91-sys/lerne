@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { BookOpen, LogOut, GraduationCap, Trophy } from 'lucide-react'
+import { BookOpen, LogOut, GraduationCap } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Profile } from '@/types'
 import { cn } from '@/lib/utils'
@@ -22,18 +22,23 @@ export default function StudentSidebar({ profile }: { profile: Profile }) {
   }
 
   return (
-    <aside className="w-60 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-screen">
-      <div className="px-5 py-5 border-b border-gray-100">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
-            <GraduationCap size={16} className="text-white" />
+    <aside className="w-60 flex-shrink-0 flex flex-col h-screen"
+      style={{ background: '#fffdf8', borderRight: '1px solid #e5ddcf' }}>
+      <div className="px-5 py-5" style={{ borderBottom: '1px solid #e5ddcf' }}>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold"
+            style={{ background: '#24644d' }}>
+            <GraduationCap size={20} />
           </div>
-          <span className="text-lg font-bold text-brand-700 tracking-tight">Lerne!</span>
+          <div>
+            <span className="text-xl font-black tracking-tight" style={{ color: '#1f2724' }}>Lerne!</span>
+            <p className="text-xs" style={{ color: '#667069' }}>Deutschlernplattform</p>
+          </div>
         </div>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-0.5">
-        <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-1">
+        <p className="px-3 text-xs font-bold uppercase tracking-wider mb-2 mt-1" style={{ color: '#a09880' }}>
           Lernbereich
         </p>
         {links.map(({ href, label, icon: Icon }) => (
@@ -45,17 +50,18 @@ export default function StudentSidebar({ profile }: { profile: Profile }) {
         ))}
       </nav>
 
-      <div className="px-3 py-4 border-t border-gray-100">
+      <div className="px-3 py-4" style={{ borderTop: '1px solid #e5ddcf' }}>
         <div className="flex items-center gap-3 px-3 py-2 mb-1">
-          <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 text-sm font-semibold">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
+            style={{ background: '#24644d' }}>
             {profile?.full_name?.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">{profile?.full_name}</p>
-            <p className="text-xs text-gray-500">Lernende/r</p>
+            <p className="text-sm font-bold truncate" style={{ color: '#1f2724' }}>{profile?.full_name}</p>
+            <p className="text-xs" style={{ color: '#667069' }}>Lernende/r</p>
           </div>
         </div>
-        <button onClick={handleLogout} className="sidebar-link w-full text-gray-500">
+        <button onClick={handleLogout} className="sidebar-link w-full" style={{ color: '#667069' }}>
           <LogOut size={16} /> Abmelden
         </button>
       </div>
