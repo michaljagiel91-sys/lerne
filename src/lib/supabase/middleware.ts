@@ -26,10 +26,12 @@ export async function updateSession(request: NextRequest) {
   const { pathname } = request.nextUrl
   const publicPaths = ['/login', '/register', '/api']
 
+  // Nie zalogowany – przekieruj na login
   if (!user && !publicPaths.some(p => pathname.startsWith(p))) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
+  // Zalogowany na stronie logowania – przekieruj do dashboard
   if (user && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
     const { data: profile } = await supabase
       .from('profiles')
